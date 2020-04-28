@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "AWS Cloud9 Environment to use with Immersion Day"
+
+Resources:
+  C9IDE:
+    Type: "AWS::Cloud9::EnvironmentEC2"
+    Properties:
+      Name: "ML-Cloud9-IDE"
+      Description: "Machine Learning Immersion Day Cloud9 IDE"
+      AutomaticStopTimeMinutes: 1440
+      InstanceType: "t3.micro"
+
+Outputs:
+  Cloud9URL:
+    Description: Cloud9 Environment
+    Value:
+      Fn::Join:
+        - ""
+        - - !Sub https://${AWS::Region}.console.aws.amazon.com/cloud9/ide/
+          - !Ref "C9IDE"

@@ -1,0 +1,2 @@
+# Reference for deploying a cloudformation stack via the AWS CLI
+aws cloudformation create-stack --stack-name myteststack --template-body file://eks-master.immersionday.yaml --output yaml --region us-east-1 --capabilities CAPABILITY_IAM

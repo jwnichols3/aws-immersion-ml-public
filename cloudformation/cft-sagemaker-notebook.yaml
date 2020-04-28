@@ -1,0 +1,110 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "SageMaker Notebook Instance with workshop prereqs installed"
+Resources:
+  MyLifecycleConfig:
+    Type: AWS::SageMaker::NotebookInstanceLifecycleConfig
+    Properties:
+      NotebookInstanceLifecycleConfigName:
+        !Join ["-", ["NotebookLifeCycle", !Ref "AWS::StackName"]]
+      OnCreate:
+        - Content:
+            Fn::Base64: >-
+              #!/bin/bash
+
+              set -e
+
+              cd /home/ec2-user/SageMaker
+
+              curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/kubectl
+
+              chmod +x ./kubectl
+
+              sudo mv -v ./kubectl /usr/local/bin
+
+              curl --silent --location "https://github.com/kubeflow/kfctl/releases/download/v1.0.2/kfctl_v1.0.2-0-ga476281_linux.tar.gz" | tar xz -C /tmp
+
+              sudo mv -v /tmp/kfctl /usr/local/bin
+
+              curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+
+              sudo mv -v /tmp/eksctl /usr/local/bin
+
+              curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/aws-iam-authenticator
+
+              chmod +x ./aws-iam-authenticator
+
+              sudo mv -v ./aws-iam-authenticator /usr/local/bin
+
+              nohup eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2 > kf-sm-workshop-eksctl.out 2> kf-sm-workshop-eksctl.err & 
+                           
+              git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-workshop
+
+              sudo chown ec2-user:ec2-user -R aws-ml-workshop/
+
+              cd aws-ml-workshop
+
+      OnStart:
+        - Content:
+            Fn::Base64: >-
+              #!/bin/bash
+
+              set -e
+
+              cd /home/ec2-user/SageMaker
+
+              curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/kubectl
+
+              chmod +x ./kubectl
+
+              sudo mv -v ./kubectl /usr/local/bin
+
+              curl --silent --location "https://github.com/kubeflow/kfctl/releases/download/v1.0.2/kfctl_v1.0.2-0-ga476281_linux.tar.gz" | tar xz -C /tmp
+
+              sudo mv -v /tmp/kfctl /usr/local/bin
+
+              curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+
+              sudo mv -v /tmp/eksctl /usr/local/bin
+
+              curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/aws-iam-authenticator
+
+              chmod +x ./aws-iam-authenticator
+
+              sudo mv -v ./aws-iam-authenticator /usr/local/bin
+
+  WorkshopNotebookInstance:
+    Type: "AWS::SageMaker::NotebookInstance"
+    Properties:
+      InstanceType: "ml.t3.large"
+      RoleArn: !GetAtt ExecutionRole.Arn
+      VolumeSizeInGB: 20
+      LifecycleConfigName:
+        Fn::GetAtt:
+          - MyLifecycleConfig
+          - NotebookInstanceLifecycleConfigName
+
+  ExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "sagemaker.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: "root"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "*"
+                Resource: "*"
+
+Outputs:
+  WorkshopNotebookInstanceId:
+    Value: !Ref WorkshopNotebookInstance
