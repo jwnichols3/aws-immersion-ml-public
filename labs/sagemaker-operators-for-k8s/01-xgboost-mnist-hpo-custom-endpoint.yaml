@@ -3,7 +3,7 @@ kind: HyperparameterTuningJob
 metadata:
   name: xgboost-mnist-hpo-custom-endpoint
 spec:
-  region: us-west-2
+  region: $AWS_REGION
   sageMakerEndpoint: https://sagemaker.us-west-2.amazonaws.com
   hyperParameterTuningJobConfig:
     strategy: Bayesian
@@ -73,13 +73,13 @@ spec:
     algorithmSpecification:
       trainingImage: 433757028032.dkr.ecr.us-west-2.amazonaws.com/xgboost:1
       trainingInputMode: File
-    roleArn: arn:aws:iam::12334567890:role/sfdc-kf-sm-workshop-sm-executionrole
+    roleArn: $SAGEMAKER_IAM_ROLE
     inputDataConfig:
     - channelName: train
       dataSource:
         s3DataSource:
           s3DataType: S3Prefix
-          s3Uri: s3://pv-sfdc-kf-sagemaker-workshop/mnist-data/train/
+          s3Uri: s3://$S3_BUCKET/mnist-data/train/
           s3DataDistributionType: FullyReplicated
       contentType: text/csv
       compressionType: None
@@ -89,14 +89,14 @@ spec:
       dataSource:
         s3DataSource:
           s3DataType: S3Prefix
-          s3Uri: s3://pv-sfdc-kf-sagemaker-workshop/mnist-data/validation/
+          s3Uri: s3://$S3_BUCKET/mnist-data/validation/
           s3DataDistributionType: FullyReplicated
       contentType: text/csv
       compressionType: None
       recordWrapperType: None
       inputMode: File
     outputDataConfig:
-      s3OutputPath: s3://pv-sfdc-kf-sagemaker-workshop/xgboost-mnist-hpo
+      s3OutputPath: s3://$S3_BUCKET/xgboost-mnist-hpo
     resourceConfig:
       instanceType: ml.m4.xlarge
       instanceCount: 1
