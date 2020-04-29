@@ -34,36 +34,24 @@ EOF
 
 ```
 
-Create a SageMaker execution Role that will be used in the SageMaker pipeline component example notebook:
+### Update the EKS Worker Role with S3 and SageMaker Access
+
+To attach the S3 and SageMaker access policy to the role, follow these steps:
 
 ```shell
+export ROLE_NAME=`aws iam list-roles | jq -r ".Roles[] | select(.RoleName | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) .RoleName"`
+```
 
-export ROLE_NAME="kfworkshop-sagemaker-kfp-role"
+Add the S3 and SageMaker policy to the role
 
-TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"Service\": \"sagemaker.amazonaws.com\" }, \"Action\": \"sts:AssumeRole\" } ] }"
-
-aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document "$TRUST"
-
+```shell
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
 
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
 
-aws iam get-role --role-name $ROLE_NAME --output text --query 'Role.Arn'
-
 ```
 
-Assign sagemaker:InvokeEndpoint permission to the Worker node IAM role
-
-To get the IAM role name for your Amazon EKS worker node, run the following command:
-
-```shell
-aws iam list-roles \
-    | jq -r ".Roles[] \
-    | select(.RoleName \
-    | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) \
-    .RoleName"
-
-```
+### Assign sagemaker:InvokeEndpoint permission to the Worker node IAM role
 
 Create the Policy Document
 
@@ -82,16 +70,15 @@ cat <<EoF > sagemaker-invoke.json
     ]
 }
 EoF
-
 ```
 
-Apply the policy. Make sure to replace the {WORKER NODE IAM ROLE NAME} with the Worker node IAM role name from above.
+Apply the policy.
 
 ```shell
-
-aws iam put-role-policy --role-name {WORKER NODE IAM ROLE NAME} --policy-name sagemaker-invoke-for-worker --policy-document file://sagemaker-invoke.json
-
+aws iam put-role-policy --role-name $ROLE_NAME --policy-name sagemaker-invoke-for-worker --policy-document file://sagemaker-invoke.json
 ```
+
+## Switch to KubeFlow Notebook and Run the SageMaker Pipeline Workbook
 
 In the **Jupyter notebook interface of the Kubeflow notebook server** instance, open the `sagemaker-kubeflow-pipeline.ipynb` file under the `aws-ml-workshop/labs/sagemaker-kubeflow-pipeline` folder.
 
