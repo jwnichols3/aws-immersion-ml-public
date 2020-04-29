@@ -65,7 +65,7 @@ Create a file named trust.json and insert the following trust relationship code 
 Run the following command to create a role with the trust relationship defined in trust.json. This role enables the Amazon EKS cluster to get and refresh credentials from IAM.
 
 ```
-aws iam create-role --role-name <role name> --assume-role-policy-document file://trust.json --output=text
+aws iam create-role --role-name sm-operator-k8s-oidc-role --assume-role-policy-document file://trust.json --output=text
 ```
 
 Take note of ROLE ARN, you pass this value to your operator.
@@ -77,7 +77,7 @@ To give the role access to Amazon SageMaker, attach the AmazonSageMakerFullAcces
 To attach AmazonSageMakerFullAccess, run the following command:
 
 ```
-aws iam attach-role-policy --role-name <role name>  --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+aws iam attach-role-policy --role-name sm-operator-k8s-oidc-role  --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
 
 ```
 
