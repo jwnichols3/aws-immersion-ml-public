@@ -2,7 +2,7 @@
 
 **In the SageMaker Notebook Instance**, open the terminal using "New"/"Terminal" dropdown.
 
-Create an IAM user ‘kf-smuser', attach S3 access policy and retrieve temporary credentials
+Create an IAM user `kf-smuser`, attach S3 access policy and retrieve temporary credentials
 
 ```shell
 aws iam create-user --user-name kf-smuser
@@ -14,6 +14,7 @@ Next, save the new user’s credentials into environment variables:
 
 ```shell
 export AWS_ACCESS_KEY_ID_VALUE=$(jq -j .AccessKey.AccessKeyId /tmp/create_output.json | base64)
+
 export AWS_SECRET_ACCESS_KEY_VALUE=$(jq -j .AccessKey.SecretAccessKey /tmp/create_output.json | base64)
 ```
 
@@ -48,12 +49,11 @@ Add the S3 and SageMaker policy to the role
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
 
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
-
 ```
 
-### Assign sagemaker:InvokeEndpoint permission to the Worker node IAM role
+### Assign sagemaker:InvokeEndpoint Permission to the Worker node IAM role
 
-Create the Policy Document
+#### Create the Policy Document
 
 ```shell
 cat <<EoF > sagemaker-invoke.json
@@ -72,7 +72,7 @@ cat <<EoF > sagemaker-invoke.json
 EoF
 ```
 
-Apply the policy.
+#### Apply the Policy
 
 ```shell
 aws iam put-role-policy --role-name $ROLE_NAME --policy-name sagemaker-invoke-for-worker --policy-document file://sagemaker-invoke.json
