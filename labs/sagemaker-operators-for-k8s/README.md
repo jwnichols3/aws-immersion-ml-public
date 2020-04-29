@@ -162,6 +162,7 @@ export S3_BUCKET={prefix}-sfdc-kf-workshop-data
 Next, execute the following command in the scripts folder by replacing the bucket name with the bucket you created.
 
 ```
+cd /home/ec2-user/SageMaker/aws-ml-workshop/labs/sagemaker-operators-for-k8s/scripts/upload_xgboost_mnist_dataset
 ./upload_xgboost_mnist_dataset --s3-bucket $S3_BUCKET --s3-prefix xgboost-mnist
 
 ```
