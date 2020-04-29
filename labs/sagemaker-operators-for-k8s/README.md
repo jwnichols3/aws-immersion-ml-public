@@ -6,6 +6,12 @@ Amazon SageMaker Operators for Kubernetes make it easier for developers and data
 
 Create an OpenID Connect Provider for Your Cluster
 
+```
+# Set the Region and cluster
+export AWS_CLUSTER_NAME="kf-sm-workshop"
+export AWS_REGION="us-west-2"
+
+```
 
 Use the following command to associate the OIDC provider with your cluster.
 
