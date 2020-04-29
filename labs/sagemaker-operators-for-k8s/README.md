@@ -193,10 +193,14 @@ It should look like the following S3 URL:
 "s3://{prefix}-sfdc-kf-sagemaker-workshop-data/xgboost-mnist/xgboost-mnist-fe96de1600c145feaa55485c8a10ba58/output/model.tar.gz")
 
 Set an environment variable "MODEL_DATA_URL" with the path to the model.tar.gz file.
+
 ```
 export MODEL_DATA_URL=s3://{prefix}-sfdc-kf-sagemaker-workshop-data/xgboost-mnist/xgboost-mnist-fe96de1600c145feaa55485c8a10ba58/output/model.tar.gz
 
+```
+
 To deploy trained model to a SageMaker endpoint, use the following command by substituting the environment variables in the yaml file(SAGEMAKER_IAM_ROLE, MODEL_DATA_URL)
+
 ```
 envsubst < 00-xgboost-mnist-trainingjob.yaml | kubectl create -f
 
