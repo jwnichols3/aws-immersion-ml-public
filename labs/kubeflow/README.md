@@ -47,18 +47,6 @@ Replace the AWS cluster name in your `${CONFIG_FILE}` file, by changing the valu
 sed -i'.bak' -e 's/kubeflow-aws/'"$AWS_CLUSTER_NAME"'/' ${CONFIG_FILE}
 ```
 
-#### kfctl config file update AWS Region
-
-Retrieve the AWS Region using the following command:
-
-```shell
-aws configure get region
-```
-
-The output should be something like `us-east-1`, `us-west-2`, `eu-west-1` etc.
-
-edit the `${CONFIG_FILE}` and update the `region:` value with the correct region (near the bottom of the file)
-
 #### kfctl config file update IAM Role
 
 Get and IAM role name for your worker nodes. To get the IAM role name for your Amazon EKS worker node, run the following command:
@@ -72,16 +60,13 @@ aws iam list-roles \
 
 ```
 
-Note: The above command assumes that you used `eksctl` to create your cluster. If you use other provisioning tools to create your worker node groups, find the role that is associated with your worker nodes in the Amazon EC2 console.
-
-Change the `roles:` value in your `${CONFIG_FILE}` file, replacing the valule from the output above.
+Use the JupyterLab UI or a text editor to change the `roles:` value in your `${CONFIG_FILE}` file (`/home/ec2-user/SageMaker/kubeflow/kf-sm-workshop/kfctl_aws.yaml`), replacing the value from the output above. (example output: `eksctl-kf-sm-workshop-nodegroup-n-NodeInstanceRole-XXXXXXXXXXXX`)
 
 ### Deploy Kubeflow
 
 Run the following commands to initialize the Kubeflow cluster:
 
 ```shell
-export AWS_REGION=us-west-2
 kfctl apply -V -f ${CONFIG_FILE}
 ```
 
@@ -99,23 +84,20 @@ It may take 3-5 minutes for all containers to show as either `Running` or `Compl
 kubectl patch service -n istio-system istio-ingressgateway -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
-Run this command and way until there is a value in the EXTERNAL-IP column.
+Run this command and look for a value in the EXTERNAL-IP column. It should look like `longlonglong-name.us-west-2.elb.amazonaws.com`. If a value is not there, re-run the command until a value appears.
 
 ```shell
-kubectl get -w -n istio-system svc/istio-ingressgateway
-
+kubectl get -n istio-system svc/istio-ingressgateway
 ```
 
-You are looking for the EXTERNAL-IP value. It should look like `longlonglong-name.us-west-2.elb.amazonaws.com`.
-
-Here is an example output
+Here is an example output:
 
 ```shell
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)                                                                                                                                      AGE
 istio-ingressgateway   LoadBalancer   10.100.115.169   a52e60736312d44dd9ad61a3d5101b0a-585255769.us-west-2.elb.amazonaws.com   15020:30447/TCP,80:31380/TCP,443:31390/TCP,31400:31400/TCP,15029:31657/TCP,15030:32404/TCP,15031:32186/TCP,15032:31717/TCP,15443:30449/TCP   27h
 ```
 
-You will need this later to access the kubeflow dashboard.
+You will need the DNS name later to access the kubeflow dashboard.
 
 ### Setup AWS credentials in EKS cluster
 
@@ -152,7 +134,7 @@ EOF
 
 ```
 
-Create an S3 bucket to store training data: (Replace prefix with a unique value, e.g. you user id)
+Create an S3 bucket to store training data: (Replace {prefix} with a unique value, e.g. you user id + date)
 
 ```
 export S3_BUCKET={prefix}-sfdc-kf-workshop-data
@@ -180,9 +162,9 @@ envsubst < mnist-training.yaml | kubectl create -f -
 
 ### Kubeflow Dashboard
 
-Use the "istio-ingressgateway" load balancer URL above to access to kubeflow dashboard
+Use the "istio-ingressgateway" load balancer URL above to access to kubeflow dashboard (re-run the command `kubectl get -n istio-system svc/istio-ingressgateway` to get the DNS name if needed)
 
-First time when you login, Click on Start Setup and then specify a namespace (eg. `kf-sm-workshop`)
+First time when you login, Click on `Start Setup` and then specify a namespace (eg. `kf-sm-workshop`)
 
 Click **finish** to view the dashboard
 
