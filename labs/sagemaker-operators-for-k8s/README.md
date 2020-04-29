@@ -4,6 +4,11 @@ Amazon SageMaker Operators for Kubernetes make it easier for developers and data
 
 ### Operator Deployment
 
+switch to bash
+```
+bash
+```
+
 Create an OpenID Connect Provider for Your Cluster
 
 ```
