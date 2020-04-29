@@ -1,5 +1,7 @@
 # Machine Learning Workshop
 
+# April 30, 2020 - CONTENT UNDER CONSTRUCTION
+
 This is a set of instructions and exercises for a Machine Learning Workshop. This Machine Learning oriented content is focused on the use of Kubernetes (i.e. EKS).
 
 ## Overview

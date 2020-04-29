@@ -1,3 +1,5 @@
+# April 30, 2020 - CONTENT UNDER CONSTRUCTION
+
 ### Setup AWS credentials in Kubeflow Namespace
 
 Open the terminal using "New"/"Terminal" dropdown in the notebook interface of the Amazon SageMaker notebook instance.
