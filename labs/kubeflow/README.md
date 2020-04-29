@@ -181,7 +181,7 @@ In the quick shortcuts, click on the **Create a Notebook server** link:
 
 - On the top-left, select the namespace created above)
 - Give the notebook server a name
-- On the Image, choose one that has GPU since we'll be training a deeplearning model (e.g. `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-gpu:1.0.0`)
+- On the Image, choose one that has CPU (e.g. `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-cpu:1.0.0`)
 - Leave the remaining options as default.
 - Click Launch.
 
