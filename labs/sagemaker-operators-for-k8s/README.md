@@ -6,16 +6,11 @@ Amazon SageMaker Operators for Kubernetes make it easier for developers and data
 
 Create an OpenID Connect Provider for Your Cluster
 
-```
-# Set the Region and cluster
-export CLUSTER_NAME="<your cluster name>"
-export AWS_REGION="<your region>"
 
-```
 Use the following command to associate the OIDC provider with your cluster.
 
 ```
-eksctl utils associate-iam-oidc-provider --cluster ${CLUSTER_NAME} \
+eksctl utils associate-iam-oidc-provider --cluster ${AWS_CLUSTER_NAME} \
     --region ${AWS_REGION} --approve
 ```
 
@@ -23,7 +18,7 @@ Get the OIDC ID
 To set up the ServiceAccount, first obtain the OpenID Connect issuer URL using the following command:
 
 ```
-aws eks describe-cluster --name ${CLUSTER_NAME} --region ${AWS_REGION} \
+aws eks describe-cluster --name ${AWS_CLUSTER_NAME} --region ${AWS_REGION} \
     --query cluster.identity.oidc.issuer --output text
 ```
 
