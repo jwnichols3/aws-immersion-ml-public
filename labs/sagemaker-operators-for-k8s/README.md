@@ -176,6 +176,7 @@ Before we can do training
 To start a training job, use the following command.
 
 ```
+cd /home/ec2-user/SageMaker/aws-ml-workshop/labs/sagemaker-operators-for-k8s
 kubectl apply -f 00-xgboost-mnist-trainingjob.yaml
 
 ```
