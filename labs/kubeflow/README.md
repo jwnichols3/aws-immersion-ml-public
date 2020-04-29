@@ -206,11 +206,9 @@ Kubeflow pipelines are reusable end-to-end ML workflows built using the Kubeflow
 
 The Kubeflow pipelines service has the following goals:
 
-End to end orchestration: enabling and simplifying the orchestration of end to end machine learning pipelines
-
-Easy experimentation: making it easy for you to try numerous ideas and techniques, and manage your various trials/experiments
-
-Easy re-use: enabling you to re-use components and pipelines to quickly cobble together end to end solutions, without having to re-build each time
+- **End to end orchestration**: enabling and simplifying the orchestration of end to end machine learning pipelines
+- **Easy experimentation**: making it easy for you to try numerous ideas and techniques, and manage your various trials/experiments
+- **Easy re-use**: enabling you to re-use components and pipelines to quickly cobble together end to end solutions, without having to re-build each time
 
 In the Jupyer notebook interface, open the `01_Kubeflow_Pipeline_SDK.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. This notebook walks you through an example for building a kubeflow pipeline. Step through the notebook cells to see kubeflow pipeline in action.
 
