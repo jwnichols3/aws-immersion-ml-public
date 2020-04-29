@@ -134,6 +134,8 @@ EOF
 
 ```
 
+### Create S3 Bucket
+
 Create an S3 bucket to store training data: (Replace {prefix} with a unique value, e.g. you user id + date)
 
 ```
@@ -142,7 +144,8 @@ export AWS_REGION=us-west-2
 aws s3 mb s3://$S3_BUCKET --region $AWS_REGION
 ```
 
-Before moving onto the kubeflow labs, we will first build a model for Fashion-MNIST dataset using Tensorflow and Keras on Amazon EKS. We will use a pre-built Docker image for this lab. This image uses `tensorflow/tensorflow:1.14.0` as the base image.
+Before moving onto the kubeflow labs, we will first build a model for Fashion-MNIST dataset using Tensorflow and Keras on Amazon EKS. We will use a pre-built Docker image for this lab.
+
 The image has training code and downloads training and test data sets. It also stores the generated model in an S3 bucket.
 
     Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training): ```shell
@@ -175,15 +178,16 @@ On the top-left, click `Select namespace` and change to the namespace you create
 ### Jupyter Notebook on Kubeflow
 
 In the quick shortcuts, click on the **Create a Notebook server** link:
-* On the top-left, select the namespace created above) 
-* Give the notebook server a name
-* On the Image, choose one that has GPU since we'll be training a deeplearning model (e.g. `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-gpu:1.0.0`)
-* Leave the remaining options as default.
-* Click Launch.
+
+- On the top-left, select the namespace created above)
+- Give the notebook server a name
+- On the Image, choose one that has GPU since we'll be training a deeplearning model (e.g. `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-gpu:1.0.0`)
+- Leave the remaining options as default.
+- Click Launch.
 
 Once the notebook server is created, Click on `CONNECT`. This opens the Jupyter notebook interface in a new browser tab.
 
-Open the terminal using `New`/ `Terminal` dropdown in the notebook interface. 
+Open the terminal using `New`/ `Terminal` dropdown in the notebook interface.
 
 Clone the github repository:
 
@@ -191,6 +195,8 @@ Clone the github repository:
 git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-workshop
 
 ```
+
+### Run the Training
 
 In the Jupyter notebook interface, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
 
