@@ -152,12 +152,17 @@ We will use the built in SageMaker xgboost container to train an xgboost model u
 
 To prepare the dataset, you can use the upload_xgboost_mnist_dataset script in the scripts folder. 
 
-First, create an S3 bucket with 'sagemaker' (for eg, {prefix}-sfdc-kf-sagemaker-workshop) in its name so that the role has the permission to create files in the bucket.
+Use previously created bucket in earlier labs {prefix}-sfdc-kf-workshop-data
+
+```
+export S3_BUCKET={prefix}-sfdc-kf-workshop-data
+
+```
 
 Next, execute the following command in the scripts folder by replacing the bucket name with the bucket you created.
 
 ```
-./upload_xgboost_mnist_dataset --s3-bucket BUCKET_NAME --s3-prefix xgboost-mnist
+./upload_xgboost_mnist_dataset --s3-bucket $S3_BUCKET --s3-prefix xgboost-mnist
 
 ```
 This script will upload the training, validation and test data to the S3 bucket.
