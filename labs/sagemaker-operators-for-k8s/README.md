@@ -155,7 +155,7 @@ To prepare the dataset, you can use the upload_xgboost_mnist_dataset script in t
 Use previously created bucket in earlier labs {prefix}-sfdc-kf-workshop-data
 
 ```
-export S3_BUCKET={prefix}-sfdc-kf-workshop-data
+export S3_BUCKET={prefix}-sfdc-kf-sagemaker-workshop-data
 
 ```
 

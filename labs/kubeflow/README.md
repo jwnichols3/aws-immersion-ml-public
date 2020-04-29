@@ -139,7 +139,7 @@ EOF
 Create an S3 bucket to store training data: (Replace {prefix} with a unique value, e.g. you user id + date)
 
 ```
-export S3_BUCKET={prefix}-sfdc-kf-workshop-data
+export S3_BUCKET={prefix}-sfdc-kf-sagemaker-workshop-data
 export AWS_REGION=us-west-2
 aws s3 mb s3://$S3_BUCKET --region $AWS_REGION
 ```
