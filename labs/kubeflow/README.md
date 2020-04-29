@@ -105,7 +105,7 @@ These credentials are stored in EKS cluster as Kubernetes secrets.
 
 Create an IAM user `kf-s3user`, attach S3 access policy and retrieve temporary credentials
 
-```
+```shell
 aws iam create-user --user-name kf-s3user
 aws iam attach-user-policy --user-name kf-s3user --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
 aws iam create-access-key --user-name kf-s3user > /tmp/create_output.json
@@ -113,14 +113,15 @@ aws iam create-access-key --user-name kf-s3user > /tmp/create_output.json
 
 Next, save the new user’s credentials into environment variables:
 
-```
+```shell
 export AWS_ACCESS_KEY_ID_VALUE=$(jq -j .AccessKey.AccessKeyId /tmp/create_output.json | base64)
+
 export AWS_SECRET_ACCESS_KEY_VALUE=$(jq -j .AccessKey.SecretAccessKey /tmp/create_output.json | base64)
 ```
 
 Create the kubernetes secret:
 
-```
+```shell
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
@@ -148,7 +149,6 @@ Before moving onto the kubeflow labs, we will first build a model for Fashion-MN
 
 The image has training code and downloads training and test data sets. It also stores the generated model in an S3 bucket.
 
-
 Navigate to the kubeflow folder in the workshop github repository
 
 ```shell
@@ -160,15 +160,18 @@ Run the training using the pod by substituting the environment variables in the 
 ```shell
 envsubst < mnist-training.yaml | kubectl create -f -
 ```
-Note: The example above uses a pre-built docker image. Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training): 
+
+Note: The example above uses a pre-built docker image. Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training):
+
 ```shell
     docker build -t <dockerhub_username>/<repo_name>:<tag_name> .
 ```
+
 ### Kubeflow Dashboard
 
 Open a new browser tab/window.
 
-Use the "istio-ingressgateway" load balancer URL above to access to kubeflow dashboard (re-run the command `kubectl get -n istio-system svc/istio-ingressgateway` to get the DNS name if needed)
+Use the `istio-ingressgateway` load balancer URL above to access to kubeflow dashboard (if needed, re-run the command `kubectl get -n istio-system svc/istio-ingressgateway` to get the DNS name)
 
 First time when you login, Click on `Start Setup` and then specify a namespace (eg. `kf-sm-workshop` or the default `anonymous`)
 
@@ -194,12 +197,11 @@ Clone the github repository:
 
 ```shell
 git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-workshop
-
 ```
 
 ### Run the Training
 
-In the Jupyter notebook interface, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
+In the **Jupyter notebook interface**, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
 
 ### Kubeflow Pipelines
 
