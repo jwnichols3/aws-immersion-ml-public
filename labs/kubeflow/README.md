@@ -160,7 +160,8 @@ Run the training using the pod by substituting the environment variables in the 
 ```shell
 envsubst < mnist-training.yaml | kubectl create -f -
 ```
-Note: The example above uses a pre-built docker image. Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training): ```shell
+Note: The example above uses a pre-built docker image. Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training): 
+```shell
     docker build -t <dockerhub_username>/<repo_name>:<tag_name> .
 ```
 ### Kubeflow Dashboard
