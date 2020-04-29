@@ -36,7 +36,8 @@ There are several labs included with this Workshop, including:
 
 - [Kubeflow on EKS](labs/kubeflow/README.md)
 - [Kubeflow Pipelines with SageMaker](labs/sagemaker-kubeflow-pipeline/README.md)
-- [SageMaker Operators for Kubernetes](labs/sagemaker-operators-for-k8s/README.md)
 - [SageMaker Batch Transform](labs/sagemaker/README.md)
-- [SageMaker Multi-Model Endpoints (MME)](labs/sagemaker/README.md)
+- [SageMaker Build Train Deploy](labs/sagemaker/build-train-deploy/)
 - [SageMaker Hyper-Parameter Optimization](labs/sagemaker/README.md)
+- [SageMaker Multi-Model Endpoints (MME)](labs/sagemaker/README.md)
+- [SageMaker Operators for Kubernetes](labs/sagemaker-operators-for-k8s/README.md)
