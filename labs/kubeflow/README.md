@@ -162,21 +162,30 @@ envsubst < mnist-training.yaml | kubectl create -f -
 
 ### Kubeflow Dashboard
 
+Open a new browser tab/window.
+
 Use the "istio-ingressgateway" load balancer URL above to access to kubeflow dashboard (re-run the command `kubectl get -n istio-system svc/istio-ingressgateway` to get the DNS name if needed)
 
-First time when you login, Click on `Start Setup` and then specify a namespace (eg. `kf-sm-workshop`)
+First time when you login, Click on `Start Setup` and then specify a namespace (eg. `kf-sm-workshop` or the default `anonymous`)
 
-Click **finish** to view the dashboard
+Click **finish** to view the dashboard.
 
-### Jupyter notebook on Kubeflow
+On the top-left, click `Select namespace` and change to the namespace you created.
 
-In the Kubeflow dashboard, click on Create a new Notebook server:
+### Jupyter Notebook on Kubeflow
 
-In the quick shortcuts, click on the **Create a Notebook server** link an select the namespace created above, provide the required details and click launch.
+In the quick shortcuts, click on the **Create a Notebook server** link:
+* On the top-left, select the namespace created above) 
+* Give the notebook server a name
+* On the Image, choose one that has GPU since we'll be training a deeplearning model (e.g. `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-gpu:1.0.0`)
+* Leave the remaining options as default.
+* Click Launch.
 
-Once the notebook server is created, Click on CONNECT. This opens the Jupyter notebook interface in a new browser tab.
+Once the notebook server is created, Click on `CONNECT`. This opens the Jupyter notebook interface in a new browser tab.
 
-Open the terminal using `New`/ `Terminal` dropdown in the notebook interface. Clone the github repository
+Open the terminal using `New`/ `Terminal` dropdown in the notebook interface. 
+
+Clone the github repository:
 
 ```shell
 git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-workshop
