@@ -13,13 +13,20 @@ Note: if you are running this workshop on your own, please see the [Self Paced I
 
 ## First Steps
 
+## First Steps
+
 1. Login to your AWS Account using the supplied method.
 2. Navigate to [SageMaker Service](https://us-west-2.console.aws.amazon.com/sagemaker/)
 3. Verify / Change to the Oregon (us-west-2) region
 4. Launch Juypter Hub on the BasicNotebookInstance
 5. Open a terminal
-6. Run the command: `aws eks update-kubeconfig --name kf-sm-workshop`
-7. Confirm connectivity to EKS by running `kubectl get nodes -A` - you should see a list of six nodes.
+6. Run the command: `eksctl get clusters` - you should see the following:
+   ```
+   NAME            REGION
+   kf-sm-workshop  us-west-2
+   ```
+7. Run the command: `aws eks update-kubeconfig --name kf-sm-workshop`
+8. Confirm connectivity to EKS by running `kubectl get nodes -A` - you should see a list of six nodes.
 
 # What's Next
 
