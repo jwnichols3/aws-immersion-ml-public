@@ -15,6 +15,10 @@ Resources:
 
               cd /home/ec2-user/SageMaker
 
+              sudo yum -y update
+
+              sudo yum -y install docker
+
               curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/kubectl
 
               chmod +x ./kubectl
@@ -35,7 +39,7 @@ Resources:
 
               sudo mv -v ./aws-iam-authenticator /usr/local/bin
 
-              nohup eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2 > kf-sm-workshop-eksctl.out 2> kf-sm-workshop-eksctl.err & 
+              nohup eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --output json --region=us-west-2 > kf-sm-workshop-eksctl.out 2> kf-sm-workshop-eksctl.err & 
                            
               git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-workshop
 

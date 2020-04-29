@@ -163,16 +163,13 @@ aws s3 mb s3://$S3_BUCKET --region $AWS_REGION
 Before moving onto the kubeflow labs, we will first build a model for Fashion-MNIST dataset using Tensorflow and Keras on Amazon EKS. We will use a pre-built Docker image for this lab. This image uses `tensorflow/tensorflow:1.14.0` as the base image.
 The image has training code and downloads training and test data sets. It also stores the generated model in an S3 bucket.
 
-Alternatively, you can use Dockerfile to build the image by using the command below. (code is available inside the [k8s-training](k8s-training) folder)
-
-```shell
-docker build -t <dockerhub_username>/<repo_name>:<tag_name> .
-```
+    Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training): ```shell
+    docker build -t <dockerhub_username>/<repo_name>:<tag_name> .```
 
 Navigate to the kubeflow folder in the workshop github repository
 
 ```shell
-cd /home/ec2-user/SageMaker/aws-immersion-ml/labs/kubeflow
+cd /home/ec2-user/SageMaker/aws-ml-workshop/labs/kubeflow
 ```
 
 Run the training using the pod by substituting the environment variables in the mnist-training.yaml file.
@@ -204,7 +201,7 @@ git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-works
 
 ```
 
-In the Jupyter notebook interface, open the "training.ipynb" file under the aws-immersion-ml/labs/kubeflow folder. Run the notebook cells to build a model for Fashion-MNIST dataset using Tensorflow and Keras on the local notebook instance.
+In the Jupyter notebook interface, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
 
 ### Kubeflow Pipelines
 
@@ -218,7 +215,7 @@ Easy experimentation: making it easy for you to try numerous ideas and technique
 
 Easy re-use: enabling you to re-use components and pipelines to quickly cobble together end to end solutions, without having to re-build each time
 
-In the Jupyer notebook interface, open the "01_Kubeflow_Pipeline_SDK.ipynb" file under the aws-immersion-ml/labs/kubeflow folder. This notebook walks you through an example for building a kubeflow pipeline. Step through the notebook cells to see kubeflow pipeline in action.
+In the Jupyer notebook interface, open the `01_Kubeflow_Pipeline_SDK.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. This notebook walks you through an example for building a kubeflow pipeline. Step through the notebook cells to see kubeflow pipeline in action.
 
 #### SageMaker Kubeflow Pipeline
 

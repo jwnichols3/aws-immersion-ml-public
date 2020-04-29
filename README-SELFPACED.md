@@ -34,7 +34,7 @@ Launch the [SageMaker Notebook CloudFormation template](cloudformation/cft-sagem
 If you have your AWS CLI configured, you can run this command at a shell prompt in the root of the github repo folder:
 
 ```shell
-aws cloudformation create-stack --stack-name MLWorkshop --template-body file://cloudformation/cft-sagemaker-notebook.yaml --output yaml --region us-west-2 --capabilities CAPABILITY_IAM
+aws cloudformation create-stack --stack-name MLWorkshop --template-body file://cloudformation/cft-sagemaker-notebook.yaml --output json --region us-west-2 --capabilities CAPABILITY_IAM
 ```
 
 ### Environment
