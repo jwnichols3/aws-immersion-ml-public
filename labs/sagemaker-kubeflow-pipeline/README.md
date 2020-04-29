@@ -36,19 +36,10 @@ EOF
 
 ### Update the EKS Worker Role with S3 and SageMaker Access
 
-```shell
-aws iam list-roles \
-    | jq -r ".Roles[] \
-    | select(.RoleName \
-    | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) \
-    .RoleName"
-
-```
-
-Copy the role output.
+To attach the S3 and SageMaker access policy to the role, follow these steps:
 
 ```shell
-export ROLE_NAME={PASTE THE ROLE OUTPUT HERE}
+export ROLE_NAME=`aws iam list-roles | jq -r ".Roles[] | select(.RoleName | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) .RoleName"`
 ```
 
 Add the S3 and SageMaker policy to the role
