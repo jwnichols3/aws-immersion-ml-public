@@ -132,12 +132,12 @@ export assume_role_policy_document='{
 }'
 
 ```
-Replace the '< execution role name >' with the name of the role you want to create
+Run following commands to create sm-operator-k8s-role role and attach role policy.
 
 ```
-aws iam create-role --role-name <execution role name> --assume-role-policy-document file://<(echo "$assume_role_policy_document")
+aws iam create-role --role-name sm-operator-k8s-role --assume-role-policy-document file://<(echo "$assume_role_policy_document")
 
-aws iam attach-role-policy --role-name <execution role name> --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+aws iam attach-role-policy --role-name sm-operator-k8s-role --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
 
 ```
 
