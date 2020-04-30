@@ -48,14 +48,14 @@ In this URL, the value `D48675832CA65BD10A532F597OIDCID` is the OIDC ID. The OID
 Create an environment variable for the OIDC ID
 
 ```shell
-export OIDC_ID = 'Replace this with the OIDC ID received from above"
+export OIDC_ID="Replace this with the OIDC ID received from above"
 ```
 
 Create an environment variable for the AWS Account Number. You can execute 
 ``` aws sts get-caller-identity ``` to see your AWS Account Number.
 
 ```shell
-export AWS_ACCOUNT_NUMBER = 'Replace this with the AWS Account Number"
+export AWS_ACCOUNT_NUMBER="Replace this with the AWS Account Number"
 ```
 #### Create an IAM Role
 
