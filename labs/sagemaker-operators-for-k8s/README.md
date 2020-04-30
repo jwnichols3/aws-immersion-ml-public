@@ -43,29 +43,60 @@ https://oidc.eks.${AWS_REGION}.amazonaws.com/id/D48675832CA65BD10A532F597OIDCID
 
 In this URL, the value `D48675832CA65BD10A532F597OIDCID` is the OIDC ID. The OIDC ID for your cluster will be different. You need this OIDC ID value to create a role.
 
+Create an environment variable for thre OIDC ID
+
+```shell
+export OIDC_ID = 'Replace this with OIDC ID received from above"
+```
+
+Create an environment variable for the AWS Account Number. You can execute 
+```shell aws sts get-caller-identity ``` to see your AWS Account Number.
+
+```shell
+export AWS_ACCOUNT_NUMBER = 'Replace this with the AWS Account Number"
+```
 #### Create an IAM Role
 
 Create a file named trust.json and insert the following trust relationship code block into it. Be sure to replace all OIDC ID, AWS account number, and EKS Cluster region placeholders with values corresponding to your cluster.
 
-```json
+First we will use the "trust-placeholder.json" file to create a trust relationship. Navigate to the following folder where the file is located.
+
+```shell
+
+cd /home/ec2-user/SageMaker/aws-ml-workshop/labs/sagemaker-operators-for-k8s
+
+```
+
+The content of the file will look like the following:
+
+```shell
+
 {
   "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::<AWS account number>:oidc-provider/oidc.eks.<EKS Cluster region>.amazonaws.com/id/<OIDC ID>"
+        "Federated": "arn:aws:iam::$AWS_ACCOUNT_NUMBER:oidc-provider/oidc.eks.$AWS_REGION.amazonaws.com/id/$OIDC_ID"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.<EKS Cluster region>.amazonaws.com/id/<OIDC ID>:aud": "sts.amazonaws.com",
-          "oidc.eks.<EKS Cluster region>.amazonaws.com/id/<OIDC ID>:sub": "system:serviceaccount:sagemaker-k8s-operator-system:sagemaker-k8s-operator-default"
+          "oidc.eks.$AWS_REGION.amazonaws.com/id/$OIDC_ID:aud": "sts.amazonaws.com",
+          "oidc.eks.$AWS_REGION.amazonaws.com/id/$OIDC_ID:sub": "system:serviceaccount:sagemaker-k8s-operator-system:sagemaker-k8s-operator-default"
         }
       }
     }
   ]
 }
+```
+
+This will be used to create an IAM role. To substitute the AWS_ACCOUNT_NUMBER, OIDC_ID & AWS_REGION in the file with the envrionment variables set earlier, execute the following command
+
+```shell
+
+envsubst < "trust-placeholder.json" > "trust.json"
+
 ```
 
 Run the following command to create a role with the trust relationship defined in trust.json. This role enables the Amazon EKS cluster to get and refresh credentials from IAM.
