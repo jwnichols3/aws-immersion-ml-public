@@ -126,7 +126,7 @@ Download the installer script using the following command:
 wget https://raw.githubusercontent.com/aws/amazon-sagemaker-operator-for-k8s/master/release/rolebased/installer.yaml
 ```
 
-Edit the `installer.yaml` file to replace `eks.amazonaws.com/role-arn`. Replace the ARN here with the Amazon Resource Name (ARN) for the OIDC-based role you’ve created.
+**Edit the `installer.yaml` file to replace `eks.amazonaws.com/role-arn`. Replace the ARN here with the Amazon Resource Name (ARN) for the OIDC-based role you’ve created**.
 
 Use the following command to deploy the cluster:
 
