@@ -57,8 +57,6 @@ export AWS_ACCOUNT_NUMBER = 'Replace this with the AWS Account Number"
 ```
 #### Create an IAM Role
 
-Create a file named trust.json and insert the following trust relationship code block into it. Be sure to replace all OIDC ID, AWS account number, and EKS Cluster region placeholders with values corresponding to your cluster.
-
 First we will use the "trust-placeholder.json" file to create a trust relationship. Navigate to the following folder where the file is located.
 
 ```shell
