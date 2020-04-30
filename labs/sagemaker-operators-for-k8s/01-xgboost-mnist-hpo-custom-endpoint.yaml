@@ -73,7 +73,7 @@ spec:
     algorithmSpecification:
       trainingImage: 433757028032.dkr.ecr.us-west-2.amazonaws.com/xgboost:1
       trainingInputMode: File
-    roleArn: $SAGEMAKER_IAM_ROLE
+    roleArn: $SAGEMAKER_IAM_ROLE_ARN
     inputDataConfig:
     - channelName: train
       dataSource:

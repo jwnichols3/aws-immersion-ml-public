@@ -23,7 +23,7 @@ spec:
   algorithmSpecification:
     trainingImage: 433757028032.dkr.ecr.us-west-2.amazonaws.com/xgboost:latest
     trainingInputMode: File
-  roleArn: $SAGEMAKER_IAM_ROLE
+  roleArn: $SAGEMAKER_IAM_ROLE_ARN
   region: $AWS_REGION
   outputDataConfig:
     s3OutputPath: s3://$S3_BUCKET/xgboost-mnist

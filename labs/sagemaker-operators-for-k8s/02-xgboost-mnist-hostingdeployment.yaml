@@ -12,7 +12,7 @@ spec:
       initialVariantWeight: 1
   models:
     - name: xgboost-model
-      executionRoleArn: $SAGEMAKER_IAM_ROLE
+      executionRoleArn: $SAGEMAKER_IAM_ROLE_ARN
       containers:
         - containerHostname: xgboost
           modelDataUrl: $MODEL_DATA_URL
