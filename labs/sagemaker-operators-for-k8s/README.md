@@ -43,14 +43,14 @@ https://oidc.eks.${AWS_REGION}.amazonaws.com/id/D48675832CA65BD10A532F597OIDCID
 
 In this URL, the value `D48675832CA65BD10A532F597OIDCID` is the OIDC ID. The OIDC ID for your cluster will be different. You need this OIDC ID value to create a role.
 
-Create an environment variable for thre OIDC ID
+Create an environment variable for the OIDC ID
 
 ```shell
-export OIDC_ID = 'Replace this with OIDC ID received from above"
+export OIDC_ID = 'Replace this with the OIDC ID received from above"
 ```
 
 Create an environment variable for the AWS Account Number. You can execute 
-```shell aws sts get-caller-identity ``` to see your AWS Account Number.
+``` aws sts get-caller-identity ``` to see your AWS Account Number.
 
 ```shell
 export AWS_ACCOUNT_NUMBER = 'Replace this with the AWS Account Number"
