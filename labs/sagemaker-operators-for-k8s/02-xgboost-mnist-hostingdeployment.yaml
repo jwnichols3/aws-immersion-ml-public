@@ -15,5 +15,5 @@ spec:
       executionRoleArn: $SAGEMAKER_IAM_ROLE
       containers:
         - containerHostname: xgboost
-          modelDataUrl: s3://$S3_BUCKET/xgboost-mnist/xgboost-mnist-ecf2331c1f10425da06b20f5d856fda3/output/model.tar.gz
+          modelDataUrl: $MODEL_DATA_URL
           image: 433757028032.dkr.ecr.us-west-2.amazonaws.com/xgboost:latest
