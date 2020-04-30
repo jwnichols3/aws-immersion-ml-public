@@ -46,6 +46,10 @@ export ROLE_NAME=`aws iam list-roles | jq -r ".Roles[] | select(.RoleName | star
 Add the S3 and SageMaker policy to the role
 
 ```shell
+TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"Service\": [ \"sagemaker.amazonaws.com\",  \"ec2.amazonaws.com\"]}, \"Action\": \"sts:AssumeRole\" } ] }"
+
+aws iam update-assume-role-policy --role-name $ROLE_NAME  --policy-document file://<(echo "$TRUST")
+
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
 
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
