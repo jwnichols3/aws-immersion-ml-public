@@ -40,7 +40,7 @@ spec:
       dataSource:
         s3DataSource:
           s3DataType: S3Prefix
-          s3Uri: s3://$S3_BUCKET/mnist-data/train/
+          s3Uri: s3://$S3_BUCKET/xgboost-mnist/train/
           s3DataDistributionType: FullyReplicated
       contentType: text/csv
       compressionType: None
@@ -48,7 +48,7 @@ spec:
       dataSource:
         s3DataSource:
           s3DataType: S3Prefix
-          s3Uri: s3://$S3_BUCKET/mnist-data/validation/
+          s3Uri: s3://$S3_BUCKET/xgboost-mnist/validation/
           s3DataDistributionType: FullyReplicated
       contentType: text/csv
       compressionType: None
