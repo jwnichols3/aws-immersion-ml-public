@@ -241,5 +241,7 @@ export MODEL_DATA_URL=s3://{prefix}-sfdc-kf-sagemaker-workshop-data/xgboost-mnis
 To deploy trained model to a SageMaker endpoint, use the following command by substituting the environment variables in the yaml file(`SAGEMAKER_IAM_ROLE`, `MODEL_DATA_URL`)
 
 ```shell
-envsubst < 02-xgboost-mnist-hostingdeployment.yaml | kubectl create -f
+
+envsubst < 02-xgboost-mnist-hostingdeployment.yaml | kubectl create -f -
+
 ```
