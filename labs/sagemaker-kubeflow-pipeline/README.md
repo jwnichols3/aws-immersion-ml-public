@@ -1,6 +1,12 @@
 ### Setup AWS credentials in Kubeflow Namespace
 
-**In the SageMaker Notebook Instance**, open the terminal using "New"/"Terminal" dropdown.
+**In the SageMaker Notebook Instance**, open the terminal using "New"/"Terminal" dropdown. (File-New-Terminal if Jupyter Lab)
+
+switch to bash
+
+```shell
+bash
+```
 
 Create an IAM user `kf-smuser`, attach S3 access policy and retrieve temporary credentials
 

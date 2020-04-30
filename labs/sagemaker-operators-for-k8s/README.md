@@ -4,6 +4,8 @@ Amazon SageMaker Operators for Kubernetes make it easier for developers and data
 
 ### Operator Deployment
 
+**In the SageMaker Notebook Instance**, open the terminal using "New"/"Terminal" dropdown. (File-New-Terminal if Jupyter Lab)
+
 switch to bash
 
 ```shell
