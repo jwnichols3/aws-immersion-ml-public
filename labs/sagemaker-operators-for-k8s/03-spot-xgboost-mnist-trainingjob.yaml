@@ -23,10 +23,10 @@ spec:
   algorithmSpecification:
     trainingImage: 433757028032.dkr.ecr.us-west-2.amazonaws.com/xgboost:1
     trainingInputMode: File
-  roleArn: arn:aws:iam::1234567890:role/sfdc-kf-sm-workshop-sm-executionrole
-  region: us-west-2
+  roleArn: $SAGEMAKER_IAM_ROLE_ARN
+  region: $AWS_REGION
   outputDataConfig:
-    s3OutputPath: s3://pv-sfdc-kf-sm-workshop/xgboost-mnist-spot
+    s3OutputPath: s3://$S3_BUCKET/xgboost-mnist-spot
   resourceConfig:
     instanceCount: 1
     instanceType: ml.m4.xlarge
@@ -40,7 +40,7 @@ spec:
       dataSource:
         s3DataSource:
           s3DataType: S3Prefix
-          s3Uri: s3://pv-sfdc-kf-sm-workshop/mnist-data/train/
+          s3Uri: s3://$S3_BUCKET/xgboost-mnist/train/
           s3DataDistributionType: FullyReplicated
       contentType: text/csv
       compressionType: None
@@ -48,9 +48,9 @@ spec:
       dataSource:
         s3DataSource:
           s3DataType: S3Prefix
-          s3Uri: s3://pv-sfdc-kf-sm-workshop/mnist-data/validation/
+          s3Uri: s3://$S3_BUCKET/xgboost-mnist/validation/
           s3DataDistributionType: FullyReplicated
       contentType: text/csv
       compressionType: None
   checkpointConfig:
-    s3Uri: s3://pv-sfdc-kf-sm-workshop/xgboost-mnist/checkpoints/
+    s3Uri: s3://$S3_BUCKET/xgboost-mnist/checkpoints/

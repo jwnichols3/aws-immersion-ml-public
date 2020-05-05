@@ -47,18 +47,6 @@ Replace the AWS cluster name in your `${CONFIG_FILE}` file, by changing the valu
 sed -i'.bak' -e 's/kubeflow-aws/'"$AWS_CLUSTER_NAME"'/' ${CONFIG_FILE}
 ```
 
-#### kfctl config file update AWS Region
-
-Retrieve the AWS Region using the following command:
-
-```shell
-aws configure get region
-```
-
-The output should be something like `us-east-1`, `us-west-2`, `eu-west-1` etc.
-
-edit the `${CONFIG_FILE}` and update the `region:` value with the correct region (near the bottom of the file)
-
 #### kfctl config file update IAM Role
 
 Get and IAM role name for your worker nodes. To get the IAM role name for your Amazon EKS worker node, run the following command:
@@ -72,16 +60,13 @@ aws iam list-roles \
 
 ```
 
-Note: The above command assumes that you used `eksctl` to create your cluster. If you use other provisioning tools to create your worker node groups, find the role that is associated with your worker nodes in the Amazon EC2 console.
-
-Change the `roles:` value in your `${CONFIG_FILE}` file, replacing the valule from the output above.
+Use the JupyterLab UI or a text editor to change the `roles:` value in your `${CONFIG_FILE}` file (`/home/ec2-user/SageMaker/kubeflow/kf-sm-workshop/kfctl_aws.yaml`), replacing the value from the output above. (example output: `eksctl-kf-sm-workshop-nodegroup-n-NodeInstanceRole-XXXXXXXXXXXX`)
 
 ### Deploy Kubeflow
 
 Run the following commands to initialize the Kubeflow cluster:
 
 ```shell
-export AWS_REGION=us-west-2
 kfctl apply -V -f ${CONFIG_FILE}
 ```
 
@@ -99,23 +84,20 @@ It may take 3-5 minutes for all containers to show as either `Running` or `Compl
 kubectl patch service -n istio-system istio-ingressgateway -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
-Run this command and way until there is a value in the EXTERNAL-IP column.
+Run this command and look for a value in the EXTERNAL-IP column. It should look like `longlonglong-name.us-west-2.elb.amazonaws.com`. If a value is not there, re-run the command until a value appears.
 
 ```shell
-kubectl get -w -n istio-system svc/istio-ingressgateway
-
+kubectl get -n istio-system svc/istio-ingressgateway
 ```
 
-You are looking for the EXTERNAL-IP value. It should look like `longlonglong-name.us-west-2.elb.amazonaws.com`.
-
-Here is an example output
+Here is an example output:
 
 ```shell
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP                                                              PORT(S)                                                                                                                                      AGE
 istio-ingressgateway   LoadBalancer   10.100.115.169   a52e60736312d44dd9ad61a3d5101b0a-585255769.us-west-2.elb.amazonaws.com   15020:30447/TCP,80:31380/TCP,443:31390/TCP,31400:31400/TCP,15029:31657/TCP,15030:32404/TCP,15031:32186/TCP,15032:31717/TCP,15443:30449/TCP   27h
 ```
 
-You will need this later to access the kubeflow dashboard.
+You will need the DNS name later to access the kubeflow dashboard.
 
 ### Setup AWS credentials in EKS cluster
 
@@ -123,7 +105,7 @@ These credentials are stored in EKS cluster as Kubernetes secrets.
 
 Create an IAM user `kf-s3user`, attach S3 access policy and retrieve temporary credentials
 
-```
+```shell
 aws iam create-user --user-name kf-s3user
 aws iam attach-user-policy --user-name kf-s3user --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
 aws iam create-access-key --user-name kf-s3user > /tmp/create_output.json
@@ -131,14 +113,15 @@ aws iam create-access-key --user-name kf-s3user > /tmp/create_output.json
 
 Next, save the new user’s credentials into environment variables:
 
-```
+```shell
 export AWS_ACCESS_KEY_ID_VALUE=$(jq -j .AccessKey.AccessKeyId /tmp/create_output.json | base64)
+
 export AWS_SECRET_ACCESS_KEY_VALUE=$(jq -j .AccessKey.SecretAccessKey /tmp/create_output.json | base64)
 ```
 
 Create the kubernetes secret:
 
-```
+```shell
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
@@ -152,19 +135,19 @@ EOF
 
 ```
 
-Create an S3 bucket to store training data: (Replace prefix with a unique value, e.g. you user id)
+### Create S3 Bucket
+
+Create an S3 bucket to store training data: (Replace {prefix} with a unique value, e.g. you user id + date)
 
 ```
-export S3_BUCKET={prefix}-sfdc-kf-workshop-data
+export S3_BUCKET={prefix}-sfdc-kf-sagemaker-workshop-data
 export AWS_REGION=us-west-2
 aws s3 mb s3://$S3_BUCKET --region $AWS_REGION
 ```
 
-Before moving onto the kubeflow labs, we will first build a model for Fashion-MNIST dataset using Tensorflow and Keras on Amazon EKS. We will use a pre-built Docker image for this lab. This image uses `tensorflow/tensorflow:1.14.0` as the base image.
-The image has training code and downloads training and test data sets. It also stores the generated model in an S3 bucket.
+Before moving onto the kubeflow labs, we will first build a model for Fashion-MNIST dataset using Tensorflow and Keras on Amazon EKS. We will use a pre-built Docker image for this lab.
 
-    Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training): ```shell
-    docker build -t <dockerhub_username>/<repo_name>:<tag_name> .```
+The image has training code and downloads training and test data sets. It also stores the generated model in an S3 bucket.
 
 Navigate to the kubeflow folder in the workshop github repository
 
@@ -178,30 +161,47 @@ Run the training using the pod by substituting the environment variables in the 
 envsubst < mnist-training.yaml | kubectl create -f -
 ```
 
+Note: The example above uses a pre-built docker image. Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training) folder):
+
+```shell
+    docker build -t <dockerhub_username>/<repo_name>:<tag_name> .
+```
+
 ### Kubeflow Dashboard
 
-Use the "istio-ingressgateway" load balancer URL above to access to kubeflow dashboard
+Open a new browser tab/window.
 
-First time when you login, Click on Start Setup and then specify a namespace (eg. `kf-sm-workshop`)
+Use the `istio-ingressgateway` load balancer URL above to access to kubeflow dashboard (if needed, re-run the command `kubectl get -n istio-system svc/istio-ingressgateway` to get the DNS name)
 
-Click **finish** to view the dashboard
+First time when you login, Click on `Start Setup` and then specify a namespace (eg. `kf-sm-workshop` or the default `anonymous`)
 
-### Jupyter notebook on Kubeflow
+Click **finish** to view the dashboard.
 
-In the Kubeflow dashboard, click on Create a new Notebook server:
+On the top-left, click `Select namespace` and change to the namespace you created.
 
-In the quick shortcuts, click on the **Create a Notebook server** link an select the namespace created above, provide the required details and click launch.
+### Jupyter Notebook on Kubeflow
 
-Once the notebook server is created, Click on CONNECT. This opens the Jupyter notebook interface in a new browser tab.
+In the quick shortcuts, click on the **Create a Notebook server** link:
 
-Open the terminal using `New`/ `Terminal` dropdown in the notebook interface. Clone the github repository
+- On the top-left, select the namespace created above)
+- Give the notebook server a name
+- On the Image, choose one that has CPU (e.g. `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-cpu:1.0.0`)
+- Leave the remaining options as default.
+- Click Launch.
+
+Once the notebook server is created, Click on `CONNECT`. This opens the Jupyter notebook interface in a new browser tab.
+
+Open the terminal using `New`/ `Terminal` dropdown in the notebook interface.
+
+Clone the github repository:
 
 ```shell
 git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-workshop
-
 ```
 
-In the Jupyter notebook interface, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
+### Run the Training
+
+In the **Jupyter notebook interface**, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
 
 ### Kubeflow Pipelines
 
@@ -209,11 +209,9 @@ Kubeflow pipelines are reusable end-to-end ML workflows built using the Kubeflow
 
 The Kubeflow pipelines service has the following goals:
 
-End to end orchestration: enabling and simplifying the orchestration of end to end machine learning pipelines
-
-Easy experimentation: making it easy for you to try numerous ideas and techniques, and manage your various trials/experiments
-
-Easy re-use: enabling you to re-use components and pipelines to quickly cobble together end to end solutions, without having to re-build each time
+- **End to end orchestration**: enabling and simplifying the orchestration of end to end machine learning pipelines
+- **Easy experimentation**: making it easy for you to try numerous ideas and techniques, and manage your various trials/experiments
+- **Easy re-use**: enabling you to re-use components and pipelines to quickly cobble together end to end solutions, without having to re-build each time
 
 In the Jupyer notebook interface, open the `01_Kubeflow_Pipeline_SDK.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. This notebook walks you through an example for building a kubeflow pipeline. Step through the notebook cells to see kubeflow pipeline in action.
 

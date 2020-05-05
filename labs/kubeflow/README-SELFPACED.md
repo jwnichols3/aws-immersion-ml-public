@@ -1,5 +1,7 @@
 # Install Kubeflow on Amazon EKS
 
+# April 30, 2020 - CONTENT UNDER CONSTRUCTION
+
 ## Setup Kubeflow Configuration
 
 Use the following kfctl configuration file for the standard AWS setup:
