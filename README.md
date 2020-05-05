@@ -11,6 +11,11 @@ These instructions assume your Workshop is using Event Engine. You will have the
 
 Note: if you are running this workshop on your own, please see the [Self Paced Instructions](README-SELFPACED.md).
 
+## Things to Know
+
+* [Juypter Notebooks](https://www.dataquest.io/blog/jupyter-notebook-tutorial/) - This will be used in the KubeFlow labs and is an optional interface.
+* [JuypterLab](https://codingclubuc3m.rbind.io/post/2019-05-08/) - This is the recommended way to run the SageMaker labs. The multi-window capability makes the labs easier to run.
+
 ## First Steps
 
 1. Login to your AWS Account using the supplied method.
