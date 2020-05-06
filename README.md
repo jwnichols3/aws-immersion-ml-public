@@ -24,15 +24,20 @@ These are some things to be aware of before starting this workshop.
 
 - How to deploy Kubeflow on AWS EKS
 - How to leverage the AWS Machine Learning Managed Service, Amazon SageMaker, from Kubeflow Pipelines.
-- How to Build, Train, and Deploy Machien Learning Models using Amazon SageMaker.
-- Batch Inference using Amazon SageMaker.
-- Machine Learning Model Monitoring (drift, re-training) using Amazon SageMaker.
-- Running Multiple Machine Learning Inference Endpoints using SageMaker Multi-Model Endpoints.
+- How to Build, Train, and Deploy Machine Learning Models using Amazon SageMaker.
+- Batch Transform using Amazon SageMaker.
+- Scaling Machine Learning Inference using SageMaker Multi-Model Endpoints.
 - Best Practices for sizing Machine Learning instances.
+  - Machine Learning Model Monitoring (drift, re-training).
+  - Instance sizing
+
+## Visual Roadmap
+
+![Visual Roadmap](img/aws-ml-workshop-roadmap.png)
 
 ## What You Will Need
 
-- A modern browser with an Internet Connection
+- A modern browser with an internet connection
 - (recommended) 2 monitors or high enough resolution to run side-by-side windows
 - (If running as part of an AWS Workshop) [Amazon Chime App](https://aws.amazon.com/chime/)
 
