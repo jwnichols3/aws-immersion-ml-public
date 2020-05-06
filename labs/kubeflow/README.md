@@ -2,6 +2,10 @@
 
 Note: these instructions are in the context of an Event Engine-based workshop. If you're in a workshop led by AWS, it is likely you're using Event Engine. If you're running this on your own, see the [Self Paced Instructions](README-SELFPACED.md).
 
+## Visual Roadmap
+
+![Visual Roadmap](img/kubeflow-lab-overview.png)
+
 ## Setup Kubeflow Configuration
 
 Use the following kfctl configuration file for the standard AWS setup:
