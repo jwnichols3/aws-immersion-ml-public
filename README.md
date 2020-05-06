@@ -13,16 +13,36 @@ Note: if you are running this workshop on your own, please see the [Self Paced I
 
 ## Things to Know
 
-* [Juypter Notebooks](https://www.dataquest.io/blog/jupyter-notebook-tutorial/) - This will be used in the KubeFlow labs and is an optional interface.
-* [JuypterLab](https://codingclubuc3m.rbind.io/post/2019-05-08/) - This is the recommended way to run the SageMaker labs. The multi-window capability makes the labs easier to run.
+These are some things to be aware of before starting this workshop.
 
-## First Steps
+- [Juypter Notebooks](https://www.dataquest.io/blog/jupyter-notebook-tutorial/) - This will be used in the KubeFlow labs and is an optional interface.
+- [JuypterLab](https://codingclubuc3m.rbind.io/post/2019-05-08/) - This is the recommended way to run the SageMaker labs. The multi-window capability makes the labs easier to run.
+- [Kubeflow Overview](https://www.kubeflow.org/docs/started/kubeflow-overview/) - Part of these instructions are to install and use Kubeflow on AWS EKS. [Kubeflow on AWS EKS](https://aws.amazon.com/blogs/opensource/kubeflow-amazon-eks/)
+- [AWS EKS Architecture](https://aws.amazon.com/quickstart/architecture/amazon-eks/) - The Managed Kubernetes Service from AWS.
+
+## What You Will Learn
+
+- How to deploy Kubeflow on AWS EKS
+- How to leverage the AWS Machine Learning Managed Service, Amazon SageMaker, from Kubeflow Pipelines.
+- How to Build, Train, and Deploy Machien Learning Models using Amazon SageMaker.
+- Batch Inference using Amazon SageMaker.
+- Machine Learning Model Monitoring (drift, re-training) using Amazon SageMaker.
+- Running Multiple Machine Learning Inference Endpoints using SageMaker Multi-Model Endpoints.
+- Best Practices for sizing Machine Learning instances.
+
+## What You Will Need
+
+- A modern browser with an Internet Connection
+- (recommended) 2 monitors or high enough resolution to run side-by-side windows
+- (If running as part of an AWS Workshop) [Amazon Chime App](https://aws.amazon.com/chime/)
+
+## First Steps (AWS Workshop)
 
 1. Login to your AWS Account using the supplied method.
 2. Navigate to [SageMaker Service](https://us-west-2.console.aws.amazon.com/sagemaker/)
 3. Verify / Change to the Oregon (us-west-2) region
 4. Launch **Juypter** (or **Juypter Hub**) on the **BasicNotebookInstance**
-5. Open a terminal and switch to 'bash' by typing ```bash``` at the terminal prompt
+5. Open a terminal and switch to 'bash' by typing `bash` at the terminal prompt
 6. Run the command: `eksctl get clusters` - you should see the following:
    ```
    NAME            REGION
