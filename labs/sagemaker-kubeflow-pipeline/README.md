@@ -1,3 +1,7 @@
+## Visual Roadmap
+
+![Visual Roadmap](img/kubeflow-pipeline-sagemaker.png)
+
 ### Setup AWS credentials in Kubeflow Namespace
 
 **In the SageMaker Notebook Instance**, open the terminal using "New"/"Terminal" dropdown. (File-New-Terminal if Jupyter Lab)
