@@ -95,6 +95,6 @@ aws iam put-role-policy --role-name $ROLE_NAME --policy-name sagemaker-invoke-fo
 
 ## Switch to KubeFlow Notebook and Run the SageMaker Pipeline Workbook
 
-In the **Jupyter notebook interface of the Kubeflow notebook server** instance, open the `sagemaker-kubeflow-pipeline.ipynb` file under the `aws-ml-workshop/labs/sagemaker-kubeflow-pipeline` folder.
+In the **Jupyter notebook interface of the Kubeflow notebook server** instance, open the `01_Kubeflow_Pipeline_SageMaker.ipynb` file under the `aws-ml-workshop/labs/sagemaker-kubeflow-pipeline` folder.
 
 This notebook walks you through an example for building a kubeflow pipeline and build and deploy an **MNIST** classification model using Amazon SageMaker. Step through the notebook cells to see SageMaker kubeflow pipeline components in action. **Remeber to pass in the SageMaker execution Role ARN to successfully run the job**.
