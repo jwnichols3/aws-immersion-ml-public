@@ -19,6 +19,8 @@ Resources:
 
               sudo yum -y install docker
 
+              pip install --upgrade pip
+
               curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/kubectl
 
               chmod +x ./kubectl
@@ -29,7 +31,9 @@ Resources:
 
               sudo mv -v /tmp/kfctl /usr/local/bin
 
-              curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+              # May 14, 2020: Defaulting to 0.18 as 0.19 caused errors
+              # curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+              curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/0.18.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
 
               sudo mv -v /tmp/eksctl /usr/local/bin
 
