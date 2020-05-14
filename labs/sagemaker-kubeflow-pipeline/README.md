@@ -93,6 +93,16 @@ EoF
 aws iam put-role-policy --role-name $ROLE_NAME --policy-name sagemaker-invoke-for-worker --policy-document file://sagemaker-invoke.json
 ```
 
+#### Capture the Role ARN (used in the Kubeflow Pipeline SageMaker Notebook)
+Run this command and capture the returned value. You will paste this into the next section.
+
+```shell
+aws iam list-roles     | jq -r ".Roles[] \
+    | select(.RoleName \
+    | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) \
+    .Arn"
+```
+
 ## Switch to KubeFlow Notebook and Run the SageMaker Pipeline Workbook
 
 In the **Jupyter notebook interface of the Kubeflow notebook server** instance, open the `01_Kubeflow_Pipeline_SageMaker.ipynb` file under the `aws-ml-workshop/labs/sagemaker-kubeflow-pipeline` folder.

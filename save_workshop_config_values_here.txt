@@ -1,0 +1,13 @@
+Use this file to capture re-used output. Paste over the corresponding element.
+
+### EKS IAM Role:
+eksctl-kf-sm-workshop-nodegroup-n-NodeInstanceRole-XXXXXXXXXXXX
+
+### Kubeflow URL:
+long-long-long-url.us-west-2.elb.amazonaws.com
+
+### S3 Bucket for K8S Operators for SageMaker:
+export S3_BUCKET={PREFIX}-sfdc-kf-sagemaker-workshop-data
+
+### Kubeflow Pipelines for SageMaker ARN:
+arn:aws:iam::000000000000:role/eksctl-kf-sm-workshop-nodegroup-n-NodeInstanceRole-XXXXXXXXXXXX
