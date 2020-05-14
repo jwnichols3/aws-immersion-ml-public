@@ -50,6 +50,7 @@ EOF
 To attach the S3 and SageMaker access policy to the role, follow these steps:
 
 ```shell
+export AWS_CLUSTER_NAME="kf-sm-workshop"
 export ROLE_NAME=`aws iam list-roles | jq -r ".Roles[] | select(.RoleName | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) .RoleName"`
 ```
 
