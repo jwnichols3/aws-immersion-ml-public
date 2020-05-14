@@ -171,7 +171,7 @@ Note: The example above uses a pre-built docker image. Alternatively, you can us
     docker build -t <dockerhub_username>/<repo_name>:<tag_name> .
 ```
 
-### Kubeflow Dashboard
+## Kubeflow Dashboard
 
 Open a new browser tab/window.
 
@@ -207,7 +207,7 @@ git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-works
 
 In the **Jupyter notebook interface**, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
 
-### Kubeflow Pipelines
+## Kubeflow Pipelines
 
 Kubeflow pipelines are reusable end-to-end ML workflows built using the Kubeflow Pipelines SDK.
 
@@ -219,7 +219,7 @@ The Kubeflow pipelines service has the following goals:
 
 In the Jupyer notebook interface, open the `01_Kubeflow_Pipeline_SDK.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. This notebook walks you through an example for building a kubeflow pipeline. Step through the notebook cells to see kubeflow pipeline in action.
 
-#### SageMaker Kubeflow Pipeline
+### SageMaker Kubeflow Pipeline
 
 In the next lab, we will use the kubeflow pipeline components for Amazon SageMaker and train a classification model using Kmeans with MNIST dataset on SageMaker
 
