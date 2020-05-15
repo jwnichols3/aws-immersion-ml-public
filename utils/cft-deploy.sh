@@ -1,0 +1,1 @@
+aws cloudformation create-stack --stack-name MLWorkshop --template-body file://../cloudformation/cft-sagemaker-notebook.yaml --output json --region us-west-2 --capabilities CAPABILITY_IAM
