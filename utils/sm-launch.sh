@@ -1,5 +1,7 @@
 #!/bin/bash
 
+yum -y update
+
 sudo yum -y install docker
 
 # nohup pip install --upgrade pip > pip-upgrade.out 2> pip-upgrade.err &
@@ -26,10 +28,8 @@ sudo chmod +x ./aws-iam-authenticator
 
 sudo mv -v ./aws-iam-authenticator /usr/local/bin
 
-# nohup eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2 > kf-sm-workshop-eksctl.out 2> kf-sm-workshop-eksctl.err & 
+nohup eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2 > kf-sm-workshop-eksctl.out 2> kf-sm-workshop-eksctl.err & 
 
 eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2
-
-yum -y update
 
 cd aws-ml-workshop
