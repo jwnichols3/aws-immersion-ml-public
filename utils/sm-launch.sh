@@ -34,7 +34,8 @@ sudo mv -v ./aws-iam-authenticator /usr/local/bin
 # nohup eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2 > kf-sm-workshop-eksctl.out 2> kf-sm-workshop-eksctl.err & 
 
 echo "STEP creating kf-sm-workshop cluster"
-eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2
+/usr/local/bin/eksctl version
+/usr/local/bin/eksctl create cluster --name=kf-sm-workshop --version=1.15 --nodes=6 --managed --alb-ingress-access --region=us-west-2
 
 cd aws-ml-workshop
 
