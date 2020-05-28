@@ -62,7 +62,7 @@ export ROLE_NAME=`aws iam list-roles | jq -r ".Roles[] | select(.RoleName | star
 Update the `roles:` value in your `${CONFIG_FILE}` file (`/home/ec2-user/SageMaker/kubeflow/kf-sm-workshop/kfctl_aws.yaml`), replacing the value with the ROLE_NAME. (example output: `eksctl-kf-sm-workshop-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx`), We will use the sed comamnd to do this:
 
 ```shell
-sed -i'.bak2' -e 's/eksctl-kubeflow-aws-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx/'"$ROLE_NAME"'/' ${CONFIG_FILE}
+sed -i'.bak2' -e 's/eksctl-kf-sm-workshop-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx/'"$ROLE_NAME"'/' ${CONFIG_FILE}
 ```
 
 ### Deploy Kubeflow
