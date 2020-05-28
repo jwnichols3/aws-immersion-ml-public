@@ -102,52 +102,6 @@ istio-ingressgateway   LoadBalancer   10.100.115.169   a52e60736312d44dd9ad61a3d
 
 You will need the DNS name later to access the kubeflow dashboard.
 
-### Setup AWS credentials in EKS cluster
-
-These credentials are stored in EKS cluster as Kubernetes secrets.
-
-Create an IAM user `kf-s3user`, attach S3 access policy and retrieve temporary credentials
-
-```shell
-aws iam create-user --user-name kf-s3user
-aws iam attach-user-policy --user-name kf-s3user --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
-aws iam create-access-key --user-name kf-s3user > /tmp/create_output.json
-```
-
-Next, save the new user’s credentials into environment variables:
-
-```shell
-export AWS_ACCESS_KEY_ID_VALUE=$(jq -j .AccessKey.AccessKeyId /tmp/create_output.json | base64)
-
-export AWS_SECRET_ACCESS_KEY_VALUE=$(jq -j .AccessKey.SecretAccessKey /tmp/create_output.json | base64)
-```
-
-Create the kubernetes secret:
-
-```shell
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Secret
-metadata:
-  name: aws-secret
-type: Opaque
-data:
-  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_VALUE
-  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_VALUE
-EOF
-
-```
-
-### Create S3 Bucket
-
-Create an S3 bucket to store training data: (Replace {prefix} with a unique value, e.g. you user id + date)
-
-```
-export S3_BUCKET={prefix}-sfdc-kf-sagemaker-workshop-data
-export AWS_REGION=us-west-2
-aws s3 mb s3://$S3_BUCKET --region $AWS_REGION
-```
-
 ## Kubeflow Dashboard
 
 Open a new browser tab/window.
