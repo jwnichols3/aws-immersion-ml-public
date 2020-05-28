@@ -51,20 +51,19 @@ Replace the AWS cluster name in your `${CONFIG_FILE}` file, by changing the valu
 sed -i'.bak' -e 's/kubeflow-aws/'"$AWS_CLUSTER_NAME"'/' ${CONFIG_FILE}
 ```
 
-#### kfctl config file update IAM Role
+#### Update IAM Role in the kfctl config file
 
 Get and IAM role name for your worker nodes. To get the IAM role name for your Amazon EKS worker node, run the following command:
 
 ```shell
-aws iam list-roles \
-    | jq -r ".Roles[] \
-    | select(.RoleName \
-    | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) \
-    .RoleName"
-
+export ROLE_NAME=`aws iam list-roles | jq -r ".Roles[] | select(.RoleName | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) .RoleName"`
 ```
 
-Use the JupyterLab UI or a text editor to change the `roles:` value in your `${CONFIG_FILE}` file (`/home/ec2-user/SageMaker/kubeflow/kf-sm-workshop/kfctl_aws.yaml`), replacing the value from the output above. (example output: `eksctl-kf-sm-workshop-nodegroup-n-NodeInstanceRole-XXXXXXXXXXXX`)
+Update the `roles:` value in your `${CONFIG_FILE}` file (`/home/ec2-user/SageMaker/kubeflow/kf-sm-workshop/kfctl_aws.yaml`), replacing the value with the ROLE_NAME. (example output: `eksctl-kf-sm-workshop-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx`), We will use the sed comamnd to do this:
+
+```shell
+sed -i'.bak2' -e 's/eksctl-kubeflow-aws-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx/'"$ROLE_NAME"'/' ${CONFIG_FILE}
+```
 
 ### Deploy Kubeflow
 
@@ -147,28 +146,6 @@ Create an S3 bucket to store training data: (Replace {prefix} with a unique valu
 export S3_BUCKET={prefix}-sfdc-kf-sagemaker-workshop-data
 export AWS_REGION=us-west-2
 aws s3 mb s3://$S3_BUCKET --region $AWS_REGION
-```
-
-Before moving onto the kubeflow labs, we will first build a model for Fashion-MNIST dataset using Tensorflow and Keras on Amazon EKS. We will use a pre-built Docker image for this lab.
-
-The image has training code and downloads training and test data sets. It also stores the generated model in an S3 bucket.
-
-Navigate to the kubeflow folder in the workshop github repository
-
-```shell
-cd /home/ec2-user/SageMaker/aws-ml-workshop/labs/kubeflow
-```
-
-Run the training using the pod by substituting the environment variables in the mnist-training.yaml file.
-
-```shell
-envsubst < mnist-training.yaml | kubectl create -f -
-```
-
-Note: The example above uses a pre-built docker image. Alternatively, you can use Dockerfile to build the image by using the command (code is available inside the [k8s-training](k8s-training) folder):
-
-```shell
-    docker build -t <dockerhub_username>/<repo_name>:<tag_name> .
 ```
 
 ## Kubeflow Dashboard
