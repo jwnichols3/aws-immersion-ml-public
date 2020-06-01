@@ -1,4 +1,4 @@
-# Machine Learning Immersion Day CloudFormation Templates
+# Machine Learning Workshop CloudFormation Templates
 
 CloudFormation templates can be used to setup your AWS account (in the event you want to use this environment outside of an Event Engine enabled Immersion Day)
 
