@@ -1,5 +1,12 @@
 #!/bin/bash
 
+##########################################
+## Reviewed July 8, 2020 for any changes.
+##
+## eksctl latest version (0.23) still results error
+##########################################
+
+echo "Version July-8-2020"
 echo "STEP Installing Docker"
 sudo yum -y install docker
 
@@ -18,6 +25,7 @@ curl --silent --location "https://github.com/kubeflow/kfctl/releases/download/v1
 sudo mv -v /tmp/kfctl /usr/local/bin
 
 # May 14, 2020: Defaulting to 0.18 as 0.19 caused errors
+# July 8, 2020: Defaulting to 0.18 as 0.23 caused errors
 # curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 echo "STEP installing eksctl"
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/0.18.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
