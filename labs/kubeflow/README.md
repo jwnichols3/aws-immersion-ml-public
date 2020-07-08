@@ -6,6 +6,13 @@ Note: these instructions are in the context of an Event Engine-based workshop. I
 
 ![Visual Roadmap](img/kubeflow-lab-overview.png)
 
+## Confirm ```kubectl```
+Run the following command:
+```shell
+kubectl get pods
+```
+If this returns an error, return to the [Main README](/README.md#FirstSteps) to configure/validate kubectl.
+
 ## Setup Kubeflow Configuration
 
 Use the following kfctl configuration file for the standard AWS setup:
@@ -57,6 +64,17 @@ Get and IAM role name for your worker nodes. To get the IAM role name for your A
 
 ```shell
 export ROLE_NAME=`aws iam list-roles | jq -r ".Roles[] | select(.RoleName | startswith(\"eksctl-$AWS_CLUSTER_NAME\") and contains(\"NodeInstanceRole\")) .RoleName"`
+```
+Confirm that ROLE_NAME is populated. 
+
+```shell
+echo ${ROLE_NAME}
+```
+
+This should return something that looks like this:
+```
+[ec2-user@ip-172-11-22-123 kf-sm-workshop]$ echo ${ROLE_NAME}
+eksctl-kf-sm-workshop-nodegroup-n-NodeInstanceRole-XXXXXXXXXXXX
 ```
 
 Update the `roles:` value in your `${CONFIG_FILE}` file (`/home/ec2-user/SageMaker/kubeflow/kf-sm-workshop/kfctl_aws.yaml`), replacing the value with the ROLE_NAME. (example output: `eksctl-kf-sm-workshop-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx`), We will use the sed comamnd to do this:
@@ -119,39 +137,36 @@ On the top-left, click `Select namespace` and change to the namespace you create
 In the quick shortcuts, click on the **Create a Notebook server** link:
 
 - On the top-left, select the namespace created above)
+
+![Selecting the Namespace](img/kubeflow-namespace-select.png)
+
 - Give the notebook server a name
 - On the Image, choose one that has CPU (e.g. `gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-cpu:1.0.0`)
 - Leave the remaining options as default.
 - Click Launch.
 
-Once the notebook server is created, Click on `CONNECT`. This opens the Jupyter notebook interface in a new browser tab.
 
-Open the terminal using `New`/ `Terminal` dropdown in the notebook interface.
+- Once the notebook server is created, Click on `CONNECT`. This opens the Jupyter notebook interface in a new browser tab.
 
-Clone the github repository:
+- Open the terminal using `New`/ `Terminal` dropdown in the notebook interface.
+
+![Notebook Terminal](img/kubeflow-notebook-new-terminal.png)
+
+- Clone the github repository:
+In the terminal, clone the ML Workshop repo:
 
 ```shell
 git clone https://github.com/jwnichols3/aws-immersion-ml-public.git aws-ml-workshop
 ```
 
 ### Run the Training
+In this section, you will run a training job on the Kubeflow Notebook.
 
-In the **Jupyter notebook interface**, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
+![Labs Training Notebook](img/kubeflow-notebook-labs-training.png)
 
-## Kubeflow Pipelines
+- In the **Jupyter notebook interface**, open the `training.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. 
+- Run the notebook cells to build a model for **Fashion-MNIST** dataset using **Tensorflow** and **Keras** on the local notebook instance.
 
-Kubeflow pipelines are reusable end-to-end ML workflows built using the Kubeflow Pipelines SDK.
+## Next: Kubeflow Pipelines
 
-The Kubeflow pipelines service has the following goals:
-
-- **End to end orchestration**: enabling and simplifying the orchestration of end to end machine learning pipelines
-- **Easy experimentation**: making it easy for you to try numerous ideas and techniques, and manage your various trials/experiments
-- **Easy re-use**: enabling you to re-use components and pipelines to quickly cobble together end to end solutions, without having to re-build each time
-
-In the Jupyer notebook interface, open the `01_Kubeflow_Pipeline_SDK.ipynb` file under the `aws-ml-workshop/labs/kubeflow` folder. This notebook walks you through an example for building a kubeflow pipeline. Step through the notebook cells to see kubeflow pipeline in action.
-
-### SageMaker Kubeflow Pipeline
-
-In the next lab, we will use the kubeflow pipeline components for Amazon SageMaker and train a classification model using Kmeans with MNIST dataset on SageMaker
-
-See the [README](../sagemaker-kubeflow-pipeline/README.md) for step by step instructions
+In the next lab you will launch a Kubeflow Pipeline => [Kubeflow Pipeline Lab](README-kubeflow-pipelines.md)
