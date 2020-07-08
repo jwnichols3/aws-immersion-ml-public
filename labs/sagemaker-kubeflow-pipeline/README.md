@@ -151,6 +151,8 @@ In the **Jupyter notebook interface of the Kubeflow notebook server** instance:
 
 - Resources will appear in SageMaker:
 
+Training Job
+
 ![Kubeflow Pipeline - SageMaker Component - Training Job](../kubeflow/img/kubeflow-sagemaker-sm-output-training-job.png)
 
 Endpoint Config
