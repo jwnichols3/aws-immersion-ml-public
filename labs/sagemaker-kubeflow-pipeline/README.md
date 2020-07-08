@@ -141,4 +141,22 @@ In the **Jupyter notebook interface of the Kubeflow notebook server** instance:
 
 ### Stepping Through the Notebook
 
-As you step through the Notebook, you'll see this as the last step. The link to the "Run"
+- As you step through the Notebook, you'll see this as the last step. 
+
+![Kubeflow Pipeline - Running](../kubeflow/img/kubeflow-sagemaker-steps-6-7.png)
+
+- The "Run" Link will show something like this:
+
+![Kubeflow Pipeline - Output](../kubeflow/img/kubeflow-pipeline-sagemaker-output.png)
+
+- Resources will appear in SageMaker:
+
+![Kubeflow Pipeline - SageMaker Component - Training Job](../kubeflow/img/kubeflow-sagemaker-sm-output-training-job.png)
+
+Endpoint Config
+
+![Kubeflow Pipeline - SageMaker Component - Endpoint Config](../kubeflow/img/kubeflow-sagemaker-sm-output-endpoint-config.png)
+
+Endpoint
+
+![Kubeflow Pipeline - SageMaker Component - Endpoint](../kubeflow/img/kubeflow-sagemaker-sm-output-endpoints.png)
