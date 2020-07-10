@@ -7,7 +7,10 @@ CloudFormation templates can be used to setup your AWS account (in the event you
 [This CloudFormation template](cft-sagemaker-notebook.yaml) lauches:
 
 - A SageMaker Notebook with kubectl, eksctl, kfctl, and aws-iam-authenticator.
+- Clone the github repo to a folder called kf-sm-workshop.
 - An EKS Kubernetes Cluster (called kf-sm-workshop) with 6 managed nodes.
+
+This installation is managed by the [sm-launch.sh](../utils/sm-launch.sh) script.
 
 **Caveats:**
 

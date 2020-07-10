@@ -39,6 +39,8 @@ If you have your AWS CLI configured, you can run this command at a shell prompt 
 aws cloudformation create-stack --stack-name MLWorkshop --template-body file://cloudformation/cft-sagemaker-notebook.yaml --output json --region us-west-2 --capabilities CAPABILITY_IAM
 ```
 
+Note: you will need to make sure your AWS account does not have any name conflicts for the EKS cluster or CloudFormation stack.
+
 ### Environment
 
 This CloudFormation template creates the following resources:
@@ -62,9 +64,9 @@ If you want to connect to the EKS cluster from a different system (e.g. your loc
 
 Launch the Juypter Labs on the SageMaker Notebook instance and follow along with the next steps. There are several labs included with this Workshop, including:
 
-- [Kubeflow on EKS](labs/kubeflow/README-SELFPACED.md)
-- [Kubeflow Pipelines with SageMaker](labs/sagemaker-kubeflow-pipeline/README-SELFPACED.md)
-- [SageMaker Batch Transform](labs/sagemaker/README-SELFPACED.md)
-- [SageMaker Multi-Model Endpoints (MME)](labs/sagemaker/README-SELFPACED.md)
-- [SageMaker Hyper-Parameter Optimization](labs/sagemaker/README-SELFPACED.md)
-- [SageMaker Operators for Kubernetes](labs/sagemaker-operators-for-k8s/README-SELFPACED.md)
+- [Kubeflow on EKS](labs/kubeflow/README.md)
+- [Kubeflow Pipelines with SageMaker](labs/sagemaker-kubeflow-pipeline/README.md)
+- [SageMaker Batch Transform](labs/sagemaker/README.md)
+- [SageMaker Multi-Model Endpoints (MME)](labs/sagemaker/README.md)
+- [SageMaker Hyper-Parameter Optimization](labs/sagemaker/README.md)
+- [SageMaker Operators for Kubernetes](labs/sagemaker-operators-for-k8s/README.md)
