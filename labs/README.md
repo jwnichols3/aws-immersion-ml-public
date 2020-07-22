@@ -2,11 +2,12 @@
 
 There are two paths to these labs. One is Event Engine-based (If you're in an AWS-led Workshop, it is likely this is you). The other is Self-Paced. This table has links to each lab / each type.
 
-| Lab Name                               | Event Engine                                  | Self-Paced                                              |
-| -------------------------------------- | --------------------------------------------- | ------------------------------------------------------- |
-| Kubeflow on EKS                        | [Link](kubeflow/README.md)                    | [Link](kubeflow/README-SELFPACED.md)                    |
-| Kubeflow Pipelines with SageMaker      | [Link](sagemaker-kubeflow-pipeline/README.md) | [Link](sagemaker-kubeflow-pipeline/README-SELFPACED.md) |
-| SageMaker Batch Transform              | [Link](sagemaker/README.md)                   | [Link](sagemaker/README-SELFPACED.md)                   |
-| SageMaker Multi-Model Endpoints (MME)  | [Link](sagemaker/README.md)                   | [Link](sagemaker/README-SELFPACED.md)                   |
-| SageMaker Hyper-Parameter Optimization | [Link](sagemaker/README.md)                   | [Link](sagemaker/README-SELFPACED.md)                   |
-| SageMaker Operators for Kubernetes     | [Link](sagemaker-operators-for-k8s/README.md) | [Link](sagemaker-operators-for-k8s/README-SELFPACED.md) |
+| Lab Name                                                             | Instructions                                                                                                                                                                           |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Kubeflow on EKS                                                      | [Link to README](kubeflow/README.md)                                                                                                                                                   |
+| Kubeflow Pipelines with SageMaker                                    | [Link to README](sagemaker-kubeflow-pipeline/README.md)                                                                                                                                |
+| SageMaker Batch Transform                                            | [Link to Notebook](sagemaker/batch/batch_transform_associate_predictions_with_input_2020-03-26/Batch%20Transform%20-%20breast%20cancer%20prediction%20with%20high%20level%20SDK.ipynb) |
+| SageMaker Build, Train, Deploy                                       | [Link to Notebook](sagemaker/build-train-deploy/Recommendation-System-FM-KNN.ipynb)                                                                                                    |
+| SageMaker Multi-Model Endpoints (MME) using Bring Your Own Container | [Link to Notebook](sagemaker/multi-model-endpoints/multi_model_bring_your_own_2020-03-26/multi_model_endpoint_bring_your_own.ipynb)                                                    |
+| SageMaker Hyper-Parameter Optimization                               | [Link to README](sagemaker/hpo/README.md)                                                                                                                                              |
+| SageMaker Operators for Kubernetes                                   | [Link to README](sagemaker-operators-for-k8s/README.md)                                                                                                                                |
